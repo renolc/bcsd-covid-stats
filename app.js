@@ -54,7 +54,7 @@ const run = async () => {
     </html>
   `
 
-  await fs.writeFile('./stats.html', html)
+  await fs.writeFile('./index.html', html)
 
   await browser.close()
 }
