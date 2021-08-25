@@ -1,7 +1,7 @@
 name: node test
 on:
   schedule:
-    - cron: '1/5 * * * *'
+    - cron: '1/10 * * * *'
 jobs:
   update-stats:
     runs-on: ubuntu-latest
