@@ -1,7 +1,5 @@
 name: node test
 on: [workflow_dispatch]
-  schedule:
-    - cron: '*/5 * * * *'
 jobs:
   update-stats:
     runs-on: ubuntu-latest
