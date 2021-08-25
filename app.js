@@ -19,6 +19,7 @@ const run = async () => {
 
   const stats = []
   for (const i of schools) {
+    console.log('pulling', i)
     await page.select('#Value1_1', i)
     await page.click("input[name='searchID']")
     await page.waitForFunction(
