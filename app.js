@@ -69,7 +69,6 @@ const run = async () => {
             </tr>`
           )
           .join('')}
-        
       </table>
     </body>
     </html>
