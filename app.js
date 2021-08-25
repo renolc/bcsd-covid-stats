@@ -7,7 +7,8 @@ const schools = [
   'Westview Elementary',
   'Stratford High',
   'Howe Hall Aims',
-  'Marrington Middle'
+  'Marrington Middle',
+  'Berkeley High School'
 ]
 
 const run = async () => {
