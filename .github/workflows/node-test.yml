@@ -1,5 +1,7 @@
 name: node test
-on: [push]
+on:
+  schedule:
+    - cron: '*/10 * * * *'
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
@@ -10,3 +12,6 @@ jobs:
           node-version: '14'
       - run: npm ci
       - run: node app.js
+      - run: git add .
+      - run: git commit -m "updating"
+      - run: git push origin master
