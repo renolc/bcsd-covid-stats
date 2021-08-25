@@ -22,20 +22,39 @@ const run = async () => {
     tds.map(i => i.innerText)
   )
 
-  console.log('school:', school)
-  console.log('staff:', staff)
-  console.log('student:', student)
-  console.log('updated:', updated)
+  const html = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>bcsd covid statis</title>
+      <style>
+        table, th, td { border: 1px solid black; }
+        th, td { padding: 10px; }
+      </style>
+    </head>
+    <body>
+      <table>
+        <tr>
+          <th>school</th>
+          <th>staff</th>
+          <th>students</th>
+          <th>updated</th>
+        </tr>
+        <tr>
+          <td>${school}</td>
+          <td>${staff}</td>
+          <td>${student}</td>
+          <td>${updated}</td>
+        </tr>
+      </table>
+    </body>
+    </html>
+  `
 
-  await fs.writeFile(
-    './stats.json',
-    JSON.stringify({
-      school,
-      staff,
-      student,
-      updated
-    })
-  )
+  await fs.writeFile('./stats.html', html)
 
   await browser.close()
 }
