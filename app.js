@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer')
 const fs = require('fs').promises
 
 const schools = [
+  'Berkeley County School District',
   'Westview Primary',
   'Westview Middle',
   'Westview Elementary',
