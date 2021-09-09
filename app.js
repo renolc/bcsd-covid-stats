@@ -31,15 +31,23 @@ const run = async () => {
     const [
       school,
       ,
-      ,
-      staff,
-      student,
+      staffCovid,
+      studentCovid,
+      staffClose,
+      studentClose,
       updated
     ] = await page.$$eval('tr.cbResultSetDataRow td', tds =>
       tds.map(i => i.innerText)
     )
 
-    stats.push({ school, staff, student, updated })
+    stats.push({
+      school,
+      staffCovid,
+      studentCovid,
+      staffClose,
+      studentClose,
+      updated
+    })
   }
 
   const html = `
@@ -59,8 +67,10 @@ const run = async () => {
       <table>
         <tr>
           <th>school</th>
-          <th>staff</th>
-          <th>students</th>
+          <th>staff covid</th>
+          <th>students covid</th>
+          <th>staff close</th>
+          <th>student close</th>
           <th>updated</th>
         </tr>
         ${stats
@@ -68,8 +78,10 @@ const run = async () => {
             i => `
             <tr>
               <td>${i.school}</td>
-              <td>${i.staff}</td>
-              <td>${i.student}</td>
+              <td>${i.staffCovid}</td>
+              <td>${i.studentCovid}</td>
+              <td>${i.staffClose}</td>
+              <td>${i.studentClose}</td>
               <td>${i.updated}</td>
             </tr>`
           )
