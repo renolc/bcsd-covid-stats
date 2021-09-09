@@ -61,6 +61,8 @@ const run = async () => {
       <style>
         table, th, td { border: 1px solid black; }
         th, td { padding: 10px; }
+        th { font-size: x-small; }
+        td.updated { font-weight: bold; text-align: center; font-size: small; }
       </style>
     </head>
     <body>
@@ -71,7 +73,9 @@ const run = async () => {
           <th>students covid</th>
           <th>staff close</th>
           <th>student close</th>
-          <th>updated</th>
+        </tr>
+        <tr>
+          <td class="updated" colspan="5">last updated: ${stats[0].updated}</td>
         </tr>
         ${stats
           .map(
@@ -82,7 +86,6 @@ const run = async () => {
               <td>${i.studentCovid}</td>
               <td>${i.staffClose}</td>
               <td>${i.studentClose}</td>
-              <td>${i.updated}</td>
             </tr>`
           )
           .join('')}
