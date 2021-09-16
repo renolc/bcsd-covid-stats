@@ -61,18 +61,22 @@ const run = async () => {
       <style>
         table, th, td { border: 1px solid black; }
         th, td { padding: 10px; }
-        th { font-size: x-small; }
+        th { font-size: small; }
         td.updated { font-weight: bold; text-align: center; font-size: small; }
       </style>
     </head>
     <body>
       <table>
         <tr>
-          <th>school</th>
-          <th>staff covid</th>
-          <th>students covid</th>
-          <th>staff close</th>
-          <th>student close</th>
+          <th rowspan="2">school</th>
+          <th colspan="2">covid cases</th>
+          <th colspan="2">close contact</th>
+        </tr>
+        <tr>
+          <th>staff</th>
+          <th>student</th>
+          <th>staff</th>
+          <th>student</th>
         </tr>
         <tr>
           <td class="updated" colspan="5">last updated: ${stats[0].updated}</td>
