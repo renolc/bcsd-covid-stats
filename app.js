@@ -68,7 +68,7 @@ const run = async () => {
     <body>
       <table>
         <tr>
-          <th rowspan="2">school</th>
+          <th rowspan="2">${new Date(stats[0].updated).toLocaleString()}</th>
           <th colspan="2">covid cases</th>
           <th colspan="2">close contact</th>
         </tr>
@@ -77,9 +77,6 @@ const run = async () => {
           <th>student</th>
           <th>staff</th>
           <th>student</th>
-        </tr>
-        <tr>
-          <td class="updated" colspan="5">last updated: ${stats[0].updated}</td>
         </tr>
         ${stats
           .map(
