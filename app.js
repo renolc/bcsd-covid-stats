@@ -17,9 +17,9 @@ const diffBuilder = (last, curr, key) => {
   if (!prev) return ''
 
   const diffVal = curr[key] - prev[key]
-  if (diffVal > 0) return ` (+${diffVal})`
-  if (diffVal < 0) return ` (${diffVal})`
-  return ' (=)'
+  if (diffVal > 0) return ` <span class="diff">(+${diffVal})</span>`
+  if (diffVal < 0) return ` <span class="diff">(${diffVal})</span>`
+  return ' <span class="diff">(=)</span>'
 }
 
 let browser
@@ -75,15 +75,18 @@ const run = async () => {
       <title>bcsd covid statis</title>
       <style>
         table, th, td { border: 1px solid black; }
-        th, td { padding: 10px; }
+        th, td { padding: 5px; font-size: small; }
         th { font-size: small; }
         td.updated { font-weight: bold; text-align: center; font-size: small; }
+        .diff { font-size: x-small; }
       </style>
     </head>
     <body>
       <table>
         <tr>
-          <th rowspan="2">${new Date(stats[0].updated).toLocaleString()}</th>
+          <th rowspan="2" width="30%">${new Date(
+            stats[0].updated
+          ).toLocaleString()}</th>
           <th colspan="2">covid cases</th>
           <th colspan="2">close contact</th>
         </tr>
