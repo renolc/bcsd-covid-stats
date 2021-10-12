@@ -12,12 +12,25 @@ const schools = [
   'Berkeley High School'
 ]
 
+const diffBuilder = (last, curr, key) => {
+  const prev = last.data[curr.school]
+  if (!prev) return ''
+
+  const diffVal = curr[key] - prev[key]
+  if (diffVal > 0) return ` (+${diffVal})`
+  if (diffVal < 0) return ` (${diffVal})`
+  return ' (=)'
+}
+
+let browser
 const run = async () => {
-  const browser = await puppeteer.launch({ headless: true })
+  browser = await puppeteer.launch({ headless: true })
   const [page] = await browser.pages()
   await page.goto('https://www.bcsdschools.net/Page/34941', {
     waitUntil: 'networkidle2'
   })
+
+  const last = require('./last.json')
 
   const stats = []
   for (const i of schools) {
@@ -42,13 +55,15 @@ const run = async () => {
 
     stats.push({
       school,
-      staffCovid,
-      studentCovid,
-      staffClose,
-      studentClose,
+      staffCovid: +staffCovid,
+      studentCovid: +studentCovid,
+      staffClose: +staffClose,
+      studentClose: +studentClose,
       updated
     })
   }
+
+  if (last.updated === stats[0].updated) return
 
   const html = `
     <!DOCTYPE html>
@@ -81,13 +96,22 @@ const run = async () => {
         ${stats
           .map(
             i => `
-            <tr>
-              <td>${i.school}</td>
-              <td>${i.staffCovid}</td>
-              <td>${i.studentCovid}</td>
-              <td>${i.staffClose}</td>
-              <td>${i.studentClose}</td>
-            </tr>`
+              <tr>
+                <td>${i.school}</td>
+                <td>${i.staffCovid}${diffBuilder(last, i, 'staffCovid')}</td>
+                <td>${i.studentCovid}${diffBuilder(
+              last,
+              i,
+              'studentCovid'
+            )}</td>
+                <td>${i.staffClose}${diffBuilder(last, i, 'staffClose')}</td>
+                <td>${i.studentClose}${diffBuilder(
+              last,
+              i,
+              'studentClose'
+            )}</td>
+              </tr>
+            `
           )
           .join('')}
       </table>
@@ -95,9 +119,16 @@ const run = async () => {
     </html>
   `
 
-  await fs.writeFile('./index.html', html)
+  last.updated = stats[0].updated
+  last.data = stats.reduce((obj, i) => {
+    obj[i.school] = i
+    return obj
+  }, {})
+  await fs.writeFile('./last.json', JSON.stringify(last))
 
-  await browser.close()
+  await fs.writeFile('./index.html', html)
 }
 
-run()
+run().finally(() => {
+  browser.close()
+})
